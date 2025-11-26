@@ -1,5 +1,8 @@
 import ui.peliculasUI;
-void main() {
-    peliculasUI.interfazUsuario();
 
+public class Main {
+    void main() {
+        peliculasUI.interfazUsuario();
+
+    }
 }

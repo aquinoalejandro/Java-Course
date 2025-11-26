@@ -12,8 +12,7 @@ public class peliculasUI {
         while (true){
             String opcion = JOptionPane.showInputDialog(
                     null,
-                    "Menu\n" +
-                            "Seleccione una opcion: "+
+                    "Seleccione una opcion:\n"+
                             "1. Insertar Pelicula\n" +
                             "2. Listar Peliculas\n" +
                             "3. Buscar Pelicula\n" +
@@ -63,12 +62,9 @@ public class peliculasUI {
                 case 4:
                     break CERRAR;
                 default:
-                    JOptionPane.showMessageDialog(
-                            null,
-                            "Opcion no valida",
-                            "Error",
-                            JOptionPane.ERROR_MESSAGE
-                    );
+                    break ;
+
+
             }
         }
     }
