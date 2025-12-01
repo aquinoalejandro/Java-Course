@@ -9,7 +9,8 @@ public class Main {
     private static Connection connection;
 
     public static void main(String[] args) {
-        conectarBD();
+
+
 
         // Ejemplos de cómo llamar a los métodos:
         crearMensaje("Hola mundo", "Juan");
@@ -18,7 +19,7 @@ public class Main {
         actualizarMensaje(1, "Mensaje actualizado", "Pedro");
         eliminarMensaje(2);
 
-        desconectarBD();
+
     }
 
     private static void conectarBD() {
@@ -47,6 +48,7 @@ public class Main {
 
     public static void crearMensaje(String mensaje, String autor) {
         try {
+            conectarBD();
             String sql = "INSERT INTO mensajes (mensje, autor, fecha) VALUES (?, ?, CURRENT_TIMESTAMP)";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, mensaje);
@@ -54,6 +56,7 @@ public class Main {
 
             ps.executeUpdate();
             ps.close();
+            desconectarBD();
             System.out.println("Mensaje creado exitosamente");
         } catch (Exception e) {
             System.out.println("Error al crear mensaje: " + e.getMessage());
@@ -62,6 +65,7 @@ public class Main {
 
     public static void leerMensajes() {
         try {
+            conectarBD();
             String sql = "SELECT * FROM mensajes";
             PreparedStatement ps = connection.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -78,6 +82,7 @@ public class Main {
 
             rs.close();
             ps.close();
+            desconectarBD();
         } catch (Exception e) {
             System.out.println("Error al leer mensajes: " + e.getMessage());
         }
@@ -85,6 +90,7 @@ public class Main {
 
     public static void actualizarMensaje(int id, String nuevoMensaje, String nuevoAutor) {
         try {
+            conectarBD();
             String sql = "UPDATE mensajes SET mensje = ?, autor = ? WHERE id_mensaje = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, nuevoMensaje);
@@ -92,6 +98,7 @@ public class Main {
             ps.setInt(3, id);
             int filasAfectadas = ps.executeUpdate();
             ps.close();
+            desconectarBD();
 
             if (filasAfectadas > 0) {
                 System.out.println("Mensaje actualizado exitosamente");
@@ -105,11 +112,13 @@ public class Main {
 
     public static void eliminarMensaje(int id) {
         try {
+            conectarBD();
             String sql = "DELETE FROM mensajes WHERE id_mensaje = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setInt(1, id);
             int filasAfectadas = ps.executeUpdate();
             ps.close();
+            desconectarBD();
 
             if (filasAfectadas > 0) {
                 System.out.println("Mensaje eliminado exitosamente");
